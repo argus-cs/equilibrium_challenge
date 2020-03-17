@@ -5,7 +5,7 @@
     <div class="jumbotron">
       <h1>Staffs</h1>
     </div>
-    @if(count($staffs) > 1)
+    @if($staffs->isNotEmpty())
       <table class="table table-borded">
         <thead>
           <tr>
@@ -24,7 +24,9 @@
                 </a>
               </th>
               <td>{{preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $staff->cpf)}}</td>
-              <td></td>
+              <td>
+                {{$staff->sector->name}}
+              </td>
               <td>
                 <a href="/staffs/{{$staff->id}}/edit" class="btn btn-sm">
                   <i class="material-icons">edit</i>

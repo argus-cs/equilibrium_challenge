@@ -22,6 +22,14 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                {{Form::label('sector', 'Setor')}}
+                {{Form::select('sector', [$sectors], $staff->sector->name, ['class' => 'form-control', 'placeholder' => $staff->sector->name])}}
+              </div>
+            </div>
+          </div>
           {{Form::hidden('_method', 'PUT')}}
           {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
         {!! Form::close() !!}

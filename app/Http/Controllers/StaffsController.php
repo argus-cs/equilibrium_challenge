@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Sector;
 use Illuminate\Http\Request;
 use App\Staff;
 
@@ -25,7 +26,12 @@ class StaffsController extends Controller
      */
     public function create()
     {
-        return view('staffs.create');
+        $sectors = Sector::all();
+        $select = [];
+        foreach($sectors as $sector) {
+          $select[$sector->id] = $sector->name;
+        }
+        return view('staffs.create')->with('sectors', $select);
     }
 
     /**
@@ -38,7 +44,8 @@ class StaffsController extends Controller
     {
       $this->validate($request, [
         'name' => 'required',
-        'cpf' => 'required'
+        'cpf' => 'required',
+        'sector' => 'required'
       ]);
 
       $cpf = $request->input('cpf');
@@ -51,6 +58,7 @@ class StaffsController extends Controller
       $staff = new Staff();
       $staff->name = $request->input('name');
       $staff->cpf = $cpf;
+      $staff->sectors_id = $request->input('sector');
       $staff->save();
 
       return redirect('/staffs')->with('success', 'Staff Created');
@@ -77,7 +85,12 @@ class StaffsController extends Controller
     public function edit($id)
     {
       $staff = Staff::find($id);
-      return view('staffs.edit')->with('staff', $staff);
+      $sectors = Sector::all();
+        $select = [];
+        foreach($sectors as $sector) {
+          $select[$sector->id] = $sector->name;
+        }
+      return view('staffs.edit')->with(['staff' => $staff, 'sectors' => $select]);
     }
 
     /**
@@ -91,7 +104,8 @@ class StaffsController extends Controller
     {
       $this->validate($request, [
         'name' => 'required',
-        'cpf' => 'required'
+        'cpf' => 'required',
+        'sector' => 'required'
       ]);
 
       $cpf = $request->input('cpf');
@@ -104,6 +118,7 @@ class StaffsController extends Controller
       $staff = Staff::find($id);
       $staff->name = $request->input('name');
       $staff->cpf = $cpf;
+      $staff->sectors_id = $request->input('sector');
       $staff->save();
 
       return redirect('/staffs')->with('success', 'Staff Updated');

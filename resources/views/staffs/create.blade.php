@@ -22,6 +22,14 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="form-group">
+                {{Form::label('sector', 'Setor')}}
+                {{Form::select('sector', [$sectors], '', ['class' => 'form-control', 'placeholder' => 'Setor'])}}
+              </div>
+            </div>
+          </div>
           {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
         {!! Form::close() !!}
       </div>
