@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('staffs', 'StaffsController');
+// Route::group(['prefix' => 'staffs'], function () {
+//   Route::post('/', 'StaffsController@store');
+//   Route::get('/', 'StaffsController@index');
+//   Route::get('/create', 'StaffsController@create');
+//   Route::get('/{id}', 'StaffsController@show');
+// });
