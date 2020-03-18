@@ -17,9 +17,11 @@ class CreateStaffTable extends Migration
             $table->increments('id');
             $table->string('cpf', 11)->unique();
             $table->string('name');
+            $table->string('carteira', 12);
 
             $table->integer('sectors_id')->unsigned();
-            $table->foreign('sectors_id')->references('id')->on('sectors');
+            $table->foreign('sectors_id')->references('id')->on('sectors')
+              ->onDelete('cascade');
 
             $table->timestamps();
         });
