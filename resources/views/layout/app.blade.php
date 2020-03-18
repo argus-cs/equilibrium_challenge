@@ -7,7 +7,7 @@
 
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-	<title>Begins</title>
+	<title>@yield('title') | Equilibrium Challenge</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -18,6 +18,7 @@
       <div class="col-md-3 col-sm-12">
         <ul class="nav flex-column">
           <li class="nav-item">
+            <a href="/staffs" class="nav-link active">go to home</a>
             <a href="/staffs/create" class="nav-link active">create a staff</a>
           </li>
         </ul>

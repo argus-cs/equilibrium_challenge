@@ -53,6 +53,9 @@ the backend API service and Administrative System.
     - php artisan serve --host localhost --port 8000
     - **localhost can be the server's IP address**
 
+-**Go to Staffs route:**
+  - go to localhost:8000/staffs/ to see the application
+
 ### 3. License
 
 - The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

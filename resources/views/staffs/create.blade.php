@@ -1,10 +1,10 @@
 @extends('layout.app')
 
+@section('title', 'Criar Funcionário')
+
 @section('content')
   <div class="container">
-    <div class="jumbotron">
       <h1>Criar um Funcionário.</h1>
-    </div>
     <div class="row">
       <div class="col-md-12">
         <form action="{{route('staffs.store')}}" method="POST" >

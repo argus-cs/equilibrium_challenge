@@ -1,5 +1,7 @@
 @extends('layout.app')
 
+@section('title', 'Detalhes de funcionário')
+
 @section('content')
   <div class="container">
     @if($staff)
