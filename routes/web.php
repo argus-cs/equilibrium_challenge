@@ -17,10 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('staffs', 'StaffsController');
-// Route::group(['prefix' => 'staffs'], function () {
-//   Route::post('/', 'StaffsController@store');
-//   Route::get('/', 'StaffsController@index');
-//   Route::get('/create', 'StaffsController@create');
-//   Route::get('/{id}', 'StaffsController@show');
-// });
+// Route::resource('staffs', 'StaffsController');
+Route::group(['prefix' => 'staffs'], function () {
+  Route::get('/', 'StaffsController@index')->name('staffs.index');
+  Route::get('/create', 'StaffsController@create')->name('staffs.create');
+  Route::post('/store', 'StaffsController@store')->name('staffs.store');
+  Route::get('/{id}', 'StaffsController@show')->name('staffs.show');
+  Route::get('/{id}/edit', 'StaffsController@edit')->name('staffs.edit');
+  Route::post('/update', 'StaffsController@update')->name('staffs.update');
+  Route::get('/{id}/delete', 'StaffsController@destroy')->name('staffs.destroy');
+});
