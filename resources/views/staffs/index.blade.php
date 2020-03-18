@@ -3,17 +3,22 @@
 @section('title', 'Listar funcionarios')
 
 @section('content')
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Funcionários</h1>
+    </div>
     @if($staffs->isNotEmpty())
+      <table class="table table-borded">
+        <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Setor</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
           @foreach ($staffs as $staff)
-            <a href="/staffs/{{ $staff->id }}">
-              <div class="media text-muted pt-3">
-                <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
-                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                  <strong class="d-block text-gray-dark">{{$staff->name}}</strong>
-                  {{$staff->cpf}}
-                </p>
-              </div>
-            </a>
             <tr>
               <th scope="row">
                 <a href="/staffs/{{$staff->id}}">
@@ -34,9 +39,8 @@
               </td>
             </tr>
           @endforeach
-          <small class="d-block text-right mt-3">
-            <a href="#">All updates</a>
-          </small>
+        </tbody>
+      </table>
       <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -60,6 +64,7 @@
     @else
       <p>no staffs...</p>
     @endif
+  </div>
 @endsection
 
 @section('footer_scripts')
