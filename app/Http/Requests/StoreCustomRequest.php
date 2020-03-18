@@ -41,7 +41,7 @@ class StoreCustomRequest extends FormRequest
         'cpf.unique'        =>  'CPF já está em uso. Porfavor entre com outro CPF!',
         'name.required'     =>  'Nome é obrigatório!',
         'carteira.required' =>  'CTPS é obrigatória!',
-        'carteira.max'      =>  'CTPS não pode ter mais que 12 numeros!'
+        'carteira.max'      =>  'CTPS não pode ter mais que 12 numeros!',
         'sector.required'   =>  'Setor é obrigatório!',
         'phone.max'         =>  'Telefone não pode ter mais que 11 numeros!',
       ];

@@ -57,7 +57,7 @@
 
   <div class="nav-scroller bg-white shadow-sm">
     <nav class="nav nav-underline">
-      <a class="nav-link active" href="#">Listar</a>
+      <a class="nav-link active" href="{{route('staffs.index')}}">Listar</a>
       <a class="nav-link" href="{{route('staffs.create')}}">Criar funcionário</a>
     </nav>
   </div>
@@ -72,7 +72,6 @@
     </div>
 
     <div class="my-3 p-3 bg-white rounded shadow-sm">
-      <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
       @include('message')
       @yield('content')
     </div>
