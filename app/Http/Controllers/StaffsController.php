@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Sector;
+use App\Http\Requests\StoreCustomRequest;
+use App\Phone;
 use Illuminate\Http\Request;
 use App\Staff;
+use App\Sector;
 
 class StaffsController extends Controller
 {
@@ -27,11 +29,7 @@ class StaffsController extends Controller
     public function create()
     {
         $sectors = Sector::all();
-        $select = [];
-        foreach($sectors as $sector) {
-          $select[$sector->id] = $sector->name;
-        }
-        return view('staffs.create')->with('sectors', $select);
+        return view('staffs.create')->with('sectors', $sectors);
     }
 
     /**
@@ -40,28 +38,33 @@ class StaffsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCustomRequest $request)
     {
-      $this->validate($request, [
-        'name' => 'required',
-        'cpf' => 'required',
-        'sector' => 'required'
-      ]);
-
-      $cpf = $request->input('cpf');
-      $cpf = trim($cpf);
-      $cpf = str_replace('.', "", $cpf);
-      $cpf = str_replace(',', "", $cpf);
-      $cpf = str_replace('-', "", $cpf);
-      $cpf = str_replace('/', "", $cpf);
+      $validator = $request->validated();
 
       $staff = new Staff();
       $staff->name = $request->input('name');
-      $staff->cpf = $cpf;
+      $staff->cpf = $request->input('cpf');
+      $staff->carteira = $request->input('carteira');
       $staff->sectors_id = $request->input('sector');
       $staff->save();
 
-      return redirect('/staffs')->with('success', 'Staff Created');
+      $phones = new Phone();
+      $phones->number = $request->input('phone');
+      $phones->staff_id = $staff->id;
+
+      $phones2 = new Phone();
+      $phones2->number = $request->input('phone2');
+      $phones2->staff_id = $staff->id;
+
+      $phones->save();
+      $phones2->save();
+
+      if(!$validator) {
+        return redirect()->back()->withInput();
+      } else {
+        return redirect('/staffs')->with('success', 'Funcionário criado com sucesso!');
+      }
     }
 
     /**
@@ -100,28 +103,39 @@ class StaffsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
       $this->validate($request, [
-        'name' => 'required',
-        'cpf' => 'required',
-        'sector' => 'required'
+        'name'      =>  'required',
+        'carteira'  =>  'required|max:12|min:12',
+        'sector'    =>  'required',
       ]);
 
-      $cpf = $request->input('cpf');
-      $cpf = trim($cpf);
-      $cpf = str_replace('.', "", $cpf);
-      $cpf = str_replace(',', "", $cpf);
-      $cpf = str_replace('-', "", $cpf);
-      $cpf = str_replace('/', "", $cpf);
+      $staff = Staff::find($request->input('id'));
 
-      $staff = Staff::find($id);
       $staff->name = $request->input('name');
-      $staff->cpf = $cpf;
+      $staff->carteira = $request->input('carteira');
       $staff->sectors_id = $request->input('sector');
-      $staff->save();
 
-      return redirect('/staffs')->with('success', 'Staff Updated');
+      // return $request->input($staff->phones[0]->id);
+      /**
+       *  São 5h da manhã, não estou nem pensando direito...
+       */
+      foreach ($staff->phones as $phone) {
+        if($phone->number != $request->input($phone->id)){
+          $phones = Phone::findOrFail($phone->id);
+          $phones->number = $request->input($phone->id);
+          $phones->save();
+        }
+      }
+
+      $saved = $staff->save();
+
+      if(!$saved) {
+        return redirect()->back()->withInput();
+      } else {
+        return redirect('/staffs')->with('success', 'Funcionário editado com sucesso!');
+      }
     }
 
     /**
@@ -130,8 +144,11 @@ class StaffsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-      dd($request->delete_id);
+      $staff = Staff::where('id', $id);
+      $staff->delete();
+
+      return redirect('/staffs')->with('success', 'Funcionário deletado com sucesso!');
     }
 }

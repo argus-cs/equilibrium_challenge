@@ -3,7 +3,7 @@
 @section('content')
   <div class="container">
     <div class="jumbotron">
-      <h1>Staffs</h1>
+      <h1>Funcionários</h1>
     </div>
     @if($staffs->isNotEmpty())
       <table class="table table-borded">
@@ -23,7 +23,7 @@
                   {{$staff->name}}
                 </a>
               </th>
-              <td>{{preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $staff->cpf)}}</td>
+              <td>{{cpf_format($staff->cpf)}}</td>
               <td>
                 {{$staff->sector->name}}
               </td>
@@ -31,7 +31,7 @@
                 <a href="/staffs/{{$staff->id}}/edit" class="btn btn-sm">
                   <i class="material-icons">edit</i>
                 </a>
-                <button class="btn btn-sm" data-id="{{$staff->id}}" data-toggle="modal" data-target="#delete">
+                <button class="btn btn-sm delete_modal" data-id="{{$staff->id}}" data-toggle="modal" data-target="#delete">
                   <i class="material-icons">delete_outline</i>
                 </button>
               </td>
@@ -48,18 +48,13 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form action="{{route('staffs.destroy', 'test')}}" method="POST">
-              {{ method_field("DELETE") }}
-              {{ csrf_field() }}
               <div class="modal-body">
-                <input type="hidden" name="delete_id" id="delmodel" value="">
                 Deseja realmente deletar esse Funcionário?
                 a ação não poderar ser desfeita.
               </div>
-          </form>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-primary">Sim, Deletar</button>
+              <button class="btn btn-primary" id="btn_delete">Sim, Deletar</button>
             </div>
           </div>
         </div>
@@ -72,12 +67,13 @@
 
 @section('footer_scripts')
   <script>
-    $("#delete").on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget);
-      var id = button.data('id');
-      var modal = $(this);
-
-      modal.find('.modal-body #delmodel').val(id);
-    })
+    $('td').on('click', '.delete_modal', function (e) {
+      var location = "/staffs/"+$(this).data('id')+"/delete";
+      $('#btn_delete').on('click', function(event) {
+        console.log(location);
+        window.location = location;
+      });
+      $('#delete_modal').modal('show');
+    });
   </script>
 @endsection

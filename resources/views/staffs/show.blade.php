@@ -7,9 +7,18 @@
         <h1>{{$staff->name}}</h1>
       </div>
       <p>created at {{$staff->created_at}}.</p>
-      <h4>{{preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $staff->cpf)}}</h4>
+      <h4>{{cpf_format($staff->cpf)}}</h4>
+      <h3>{{$staff->carteira}}</h3>
+      <h4>Phones</h4>
+      <p>
+        @if($staff->phones->isNotEmpty())
+          @foreach ($staff->phones as $phone)
+            {{$phone->number}},
+          @endforeach
+        @endif
+      </p>
     @else
-      <p>algo deu errado...</p>
+      <p>Algo deu errado...</p>
     @endif
   </div>
 @endsection
