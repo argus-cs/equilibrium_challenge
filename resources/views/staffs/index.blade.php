@@ -2,6 +2,16 @@
 
 @section('title', 'Listar funcionarios')
 
+@section('nav')
+  <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+    <img class="mr-3" src="https://getbootstrap.com/docs/4.4/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
+    <div class="lh-100">
+      <h6 class="mb-0 text-white lh-100">Funcionários</h6>
+      <small>Lista</small>
+    </div>
+  </div>
+@endsection
+
 @section('content')
     <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
     @if($staffs->isNotEmpty())
@@ -76,7 +86,7 @@
 
 @section('footer_scripts')
   <script>
-    $('td').on('click', '.delete_modal', function (e) {
+    $('div.media-action').on('click', '.delete_modal', function (e) {
       var location = "/staffs/"+$(this).data('id')+"/delete";
       $('#btn_delete').on('click', function(event) {
         console.log(location);

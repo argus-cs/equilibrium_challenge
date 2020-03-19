@@ -2,9 +2,23 @@
 
 @section('title', 'Criar Funcionário')
 
+@section('nav')
+  <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+    <img class="mr-3" src="https://getbootstrap.com/docs/4.4/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
+    <div class="lh-100">
+      <h6 class="mb-0 text-white lh-100">Funcionário</h6>
+      <small>Criação</small>
+    </div>
+  </div>
+@endsection
+
 @section('content')
   <div class="container">
-      <h1>Criar um Funcionário.</h1>
+    <div class="py-5 text-center">
+      <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+      <h2>Criar Funcionário</h2>
+      <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+    </div>
     <div class="row">
       <div class="col-md-12">
         <form action="{{route('staffs.store')}}" method="POST" >
@@ -55,7 +69,7 @@
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Cadastrar</button>
+          <button type="submit" class="btn btn-primary btn-lg btn-block  ">Cadastrar</button>
         </form>
       </div>
     </div>

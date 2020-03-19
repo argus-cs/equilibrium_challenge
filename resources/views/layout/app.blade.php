@@ -42,7 +42,7 @@
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="{{route('staffs.index')}}">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{{route('staffs.index')}}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
@@ -63,13 +63,7 @@
   </div>
 
   <main role="main" class="container">
-    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
-      <img class="mr-3" src="/docs/4.4/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
-      <div class="lh-100">
-        <h6 class="mb-0 text-white lh-100">Funcionários</h6>
-        <small>Lista</small>
-      </div>
-    </div>
+    @yield('nav')
 
     <div class="my-3 p-3 bg-white rounded shadow-sm">
       @include('message')
